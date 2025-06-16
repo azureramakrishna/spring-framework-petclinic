@@ -3,19 +3,18 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-trigger:
-- master
+trigger: none
 
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'b53707eb-27ca-4f8e-8194-360f455b8793'
+  azureSubscription: '2e28c82c-17d7-4303-b27a-4141b3d4088f'
 
   # Web app name
-  webAppName: 'saanvikit-app'
+  webAppName: 'saanvikit-petclinic'
 
   # Environment name
-  environmentName: 'saanvikit-app'
+  environmentName: 'develop'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -24,12 +23,14 @@ stages:
 - stage: Build
   displayName: Build stage
   jobs:
+
   - job: MavenPackageAndPublishArtifacts
     displayName: Maven Package and Publish Artifacts
     pool:
       vmImage: $(vmImageName)
 
     steps:
+    - checkout: self
     - task: Maven@3
       displayName: 'Maven Package'
       inputs:
