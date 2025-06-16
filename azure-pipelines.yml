@@ -60,13 +60,13 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadBuildArtifacts@1
-            displayName: 'Download build artifacts'
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactName: 'drop'
-              downloadPath: '$(System.DefaultWorkingDirectory)'
+          # - task: DownloadBuildArtifacts@1
+          #   displayName: 'Download build artifacts'
+          #   inputs:
+          #     buildType: 'current'
+          #     downloadType: 'single'
+          #     artifactName: 'drop'
+          #     downloadPath: '$(System.DefaultWorkingDirectory)'
           
           - task: AzureRmWebAppDeployment@5
             displayName: 'Azure web app deploy: saanvikit-petclinic'
@@ -75,7 +75,7 @@ stages:
               azureSubscription: 'saanvikit-azure-connection'
               appType: 'webAppLinux'
               WebAppName: 'saanvikit-petclinic'
-              packageForLinux: '$(System.DefaultWorkingDirectory)/drop/target/*.war)'
+              packageForLinux: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
               DeploymentTypeLinux: 'oneDeploy'
 
           # - task: AzureWebApp@1
